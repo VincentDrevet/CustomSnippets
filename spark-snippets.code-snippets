@@ -1,0 +1,34 @@
+{
+	"Spark job (python)": {
+		"scope": "python",
+		"prefix":["job"],
+		"body": [
+			"from pyspark.sql import SparkSession, DataFrame",
+			"from pyspark.sql import functions as F",
+			"\n\n",
+			"session: SparkSession = SparkSession.appName('$1').getOrCreate()",
+			"\n\n",
+			"$0"
+		],
+		"description": "A new spark job"
+	},
+	"Load dataframe (python)": {
+		"scope": "python",
+		"prefix": "loadt",
+		"body": [
+			"df_${1:name}: DataFrame = ${2:session_name}.read.format(${3:format}).load('abfss://${4:workspace_id}@onelake.dfs.fabric.microsoft.com/${5:lakehouse_id}/Files/${6:table_name}')",
+			"$0"
+		],
+		"description": "Loading table in a dataframe"
+	},
+
+	"Join (python)": {
+		"scope": "python",
+		"prefix": "join",
+		"body": [
+			"${1:df}.join(${2:df}, $3, ${4:how})",
+			"$0"
+		],
+		"description": "Make a join between 2 dataframes"
+	}
+}
